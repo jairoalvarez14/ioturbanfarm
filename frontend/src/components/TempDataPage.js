@@ -5,7 +5,7 @@ const TempDataPage = () => {
 
   useEffect(() => {
     // Cambiar la dirección IP
-    fetch('http://192.168.0.103:4000/allData')
+    fetch('https://ioturbanfarm.onrender.com/allData')
       .then(response => response.json())
       .then(data => {
         console.log('Datos recibidos:', data);
