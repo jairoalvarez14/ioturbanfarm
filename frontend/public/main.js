@@ -1,7 +1,7 @@
 import io from 'socket.io-client';
 
 // Cambiar la dirección IP
-const socket = io('http://192.168.0.103:4000');
+const socket = io('https://ioturbanfarm.onrender.com');
 
 socket.on('currentTemperature', (temp) => {
     console.log(`Current Temperature: ${temp}`);
