@@ -1,0 +1,121 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    background-color: #34495e;
+    color: #fff;
+}
+
+/* Navigation */
+.header{
+    /* background-color: antiquewhite; */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 85px;
+    padding: 5px 10%;
+}
+
+.header .logo{
+    cursor: pointer;
+    margin-right: auto;
+}
+
+.header .logo a{
+    text-decoration: none;
+}
+
+.header .nav__links{
+    list-style: none;
+}
+
+.header .nav__links li{
+    display: inline-block;
+    padding: 0 20px;
+}
+
+.header .nav__links a{
+    text-decoration: none;
+}
+
+/* Body Cards */
+.container-all{
+    max-width: 1200px;
+    height: 600px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    width: 200px;
+    margin: 10px;
+}
+
+.card .card-description{
+    background-color: rgb(234, 234, 234);
+    height: 200px;
+    margin-top: 10px;
+    padding: 20px;
+    border-radius: 15px;
+    transition: all 300ms ease;
+}
+
+.card input{
+    padding: 10px 20px;
+    margin-top: 20px;
+    border: none;
+    background-color: rgb(0, 156, 156);
+    color: rgb(234, 234, 234);
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 300ms ease;
+}
+
+.expected{
+    width: 150px;
+}
+
+.card .card-description h2, .card .card-description h3{
+    background-color: rgb(234, 234, 234);
+    color: rgb(12, 12, 12);
+    margin-top: 10px;
+}
+
+.card .card-description p {
+    background-color: rgb(234, 234, 234);
+    color: rgb(12, 12, 12);
+    margin-top: 10px;
+}
+
+/* Data Table */
+table{
+    color: #fff;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+thead{
+    background: #323437;
+}
+
+th{
+    padding: 20px 15px;
+}
+
+td{
+    padding: 15px;
+    border-bottom: solid 1px rgba(255, 255, 255, 0.2);
+}
+
+tbody tr{
+    cursor: pointer;
+}
+
+tbody tr:hover{
+    background: rgba(255, 255, 255, 0.2);
+}
