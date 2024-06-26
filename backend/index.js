@@ -14,7 +14,7 @@ const server = http.createServer(app);
 const io = new SocketIOServer(server, {
     cors: {
         // Cambiar la dirección IP
-      origin: "http://192.168.0.103:3000"
+      origin: "https://ioturbanfarm-1.onrender.com"
     }
   });
 
