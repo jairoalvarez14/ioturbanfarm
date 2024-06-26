@@ -7,7 +7,7 @@ app.use(express.json());
 
 app.use(cors({
     // Cambiar la dirección IP
-    origin: 'http://192.168.0.103:3000',
+    origin: 'https://ioturbanfarm-1.onrender.com',
     optionsSuccessStatus: 200
 }));
 
