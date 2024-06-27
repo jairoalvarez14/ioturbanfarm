@@ -47,6 +47,16 @@ app.post('/', async (req, res) => {
     }
 });
 
+app.get('/allData', async (req, res) => {
+    try {
+        const data = await TempData.find().sort({ timestamp: -1 }).limit(100); // Obtener los últimos 100 datos
+        res.json(data);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        res.status(500).send('Server error');
+    }
+});
+
 io.on('connection', (socket) => {
     console.log('New client connected');
     socket.on('disconnect', () => {
