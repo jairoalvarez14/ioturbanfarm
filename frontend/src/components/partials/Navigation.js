@@ -5,7 +5,7 @@ const Navigation = () => {
   return (
     <div className="header">
       <div className="logo">
-        <Link to="/"><h3>Lettuce :D</h3></Link>
+        <Link to="/"><h3>Anti-Frost System</h3></Link>
       </div>
       <nav>
         <div className="nav__links">
