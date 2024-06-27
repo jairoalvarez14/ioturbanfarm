@@ -6,7 +6,7 @@ const Home = () => {
   const [currentHumidity, setCurrentHumidity] = useState(0);
 
   useEffect(() => {
-    const socket = io('https://ioturbanfarm.onrender.com', {
+    const socket = io('https://ioturbanfarm-1.onrender.com', {
       transports: ['websocket'],
       secure: true,
     });
