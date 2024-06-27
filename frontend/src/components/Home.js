@@ -1,22 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
+
 const Home = () => {
   const [currentTemperature, setCurrentTemperature] = useState(0);
   const [currentHumidity, setCurrentHumidity] = useState(0);
 
   useEffect(() => {
-    const socket = io('http://localhost:4000');
+    // Cambiar a la URL de tu servidor en Render
+    const socket = io('https://ioturbanfarm.onrender.com', {
+      transports: ['websocket'],
+      secure: true,
+    });
     
     socket.on('currentTemperature', (temp) => {
       setCurrentTemperature(temp);
     });
+
     socket.on('currentHumidity', (hum) => {
       setCurrentHumidity(hum);
     });
+
     return () => {
       socket.disconnect();
     };
   }, []);
+
   return (
     <div className="container-all">
       <div className="card">
@@ -40,4 +48,5 @@ const Home = () => {
     </div>
   );
 };
+
 export default Home;
