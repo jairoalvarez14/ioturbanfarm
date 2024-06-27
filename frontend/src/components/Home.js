@@ -6,7 +6,10 @@ const Home = () => {
   const [currentHumidity, setCurrentHumidity] = useState(0);
 
   useEffect(() => {
-    const socket = io('http://localhost:4000');
+    const socket = io('https://ioturbanfarm.onrender.com', {
+      transports: ['websocket'],
+      secure: true,
+    });
 
     socket.on('currentTemperature', (temp) => {
       setCurrentTemperature(temp);
