@@ -3,54 +3,55 @@ import http from 'http';
 import { connectDB } from './config/db.js';
 import { Server as SocketIOServer } from 'socket.io';
 import { TempData } from './models/data.model.js';
-import { SerialPort } from 'serialport';
-import { DelimiterParser } from '@serialport/parser-delimiter';
+
 // Conectar a MongoDB
 connectDB();
+
 const server = http.createServer(app);
 const io = new SocketIOServer(server, {
     cors: {
-        // Cambiar la dirección IP
-        origin: "https://ioturbanfarm-1.onrender.com"
+        origin: "https://ioturbanfarm-1.onrender.com",
+        methods: ["GET", "POST"]
     }
-  });
+});
 
 const PORT = process.env.PORT || 4000;
+
 server.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
 });
-// SERIAL COMMUNICATION
-const port = new SerialPort({
-    // Cambiar puerto de entrada de datos
-    path: '/dev/cu.usbmodem101',
-    // path: '/dev/cu.usbserial-10',
-    baudRate: 9600
-});
-const parser = port.pipe(new DelimiterParser({ delimiter: '\n' }));
-parser.on('open', () => {
-    console.log('Connection is opened');
-});
-port.on('error', (err) => {
-    console.log(err);
-});
-const getCurrentData = async (data) => {
+
+// Configurar rutas y middleware para manejar JSON
+app.use(express.json());
+
+// Ruta para recibir y procesar datos
+app.post('/', async (req, res) => {
+    const { temperature, humidity } = req.body;
+
     try {
-        let dataStr = data.toString().trim();
-        let [currentTemp, currentHum] = dataStr.split(',').map(value => parseFloat(value));
-        
-        console.log('------');
-        console.log('Current Temp:', currentTemp);
-        console.log('Current Hum:', currentHum);
-        // Enviar datos
-        io.emit('currentTemperature', currentTemp);
-        // io.emit('currentHumidity', currentHum);
-        const tempData1 = new TempData({
-            temperature: currentTemp,
-            humidity: currentHum
+        // Guardar datos en la base de datos
+        const tempData = new TempData({
+            temperature,
+            humidity
         });
-        await tempData1.save();
+        await tempData.save();
+
+        // Emitir datos a través de Socket.IO
+        io.emit('currentTemperature', temperature);
+        io.emit('currentHumidity', humidity);
+
+        console.log('Data received and emitted:', { temperature, humidity });
+        res.status(200).send('Data received and processed');
     } catch (error) {
-        console.log(error);
+        console.error('Error processing data:', error);
+        res.status(500).send('Server error');
     }
-};
-parser.on('data', getCurrentData);
+});
+
+// Manejar nuevas conexiones de clientes
+io.on('connection', (socket) => {
+    console.log('New client connected');
+    socket.on('disconnect', () => {
+        console.log('Client disconnected');
+    });
+});
