@@ -60,7 +60,7 @@ const Home = () => {
       <div className="feelsLike card">
         <div className="card-description">
           <h3>Feels like</h3>
-          <p id="feelsLike">{feelsLike}%</p>
+          <p id="feelsLike">{currentFeelsLike}%</p>
         </div>
       </div>
 
