@@ -11,7 +11,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new SocketIOServer(server, {
     cors: {
-        origin: "*", // Permitir todas las conexiones temporalmente
+        origin: "https://ioturbanfarm-1.onrender.com",
         methods: ["GET", "POST"]
     }
 });
