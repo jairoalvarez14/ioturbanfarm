@@ -23,21 +23,23 @@ server.listen(PORT, () => {
 
 // Ruta para recibir y procesar datos
 app.post('/', async (req, res) => {
-    const { temperature, humidity } = req.body;
+    const { temperature, humidity, feelsLike } = req.body;
 
     try {
         // Guardar datos en la base de datos
         const tempData = new TempData({
             temperature,
-            humidity
+            humidity,
+            feelsLike
         });
         await tempData.save();
 
         // Emitir datos a través de Socket.IO
         io.emit('currentTemperature', temperature);
         io.emit('currentHumidity', humidity);
+        io.emit('currentFeelsLike', feelsLike);
 
-        console.log('Data received and emitted:', { temperature, humidity });
+        console.log('Data received and emitted:', { temperature, humidity, feelsLike });
         res.status(200).send('Data received and processed');
     } catch (error) {
         console.error('Error processing data:', error);
