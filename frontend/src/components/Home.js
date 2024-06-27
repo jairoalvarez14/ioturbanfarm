@@ -6,12 +6,11 @@ const Home = () => {
   const [currentHumidity, setCurrentHumidity] = useState(0);
 
   useEffect(() => {
-    // Cambiar a la URL de tu servidor en Render
-    const socket = io('https://ioturbanfarm.onrender.com', {
+    const socket = io('https://ioturbanfarm-1.onrender.com', {
       transports: ['websocket'],
-      secure: true,
+      secure: true
     });
-    
+
     socket.on('currentTemperature', (temp) => {
       setCurrentTemperature(temp);
     });
