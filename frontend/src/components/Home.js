@@ -8,7 +8,15 @@ const Home = () => {
   useEffect(() => {
     const socket = io('https://ioturbanfarm-1.onrender.com', {
       transports: ['websocket'],
-      secure: true
+      secure: true,
+      reconnection: true,
+      reconnectionAttempts: Infinity,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 5000,
+    });
+
+    socket.on('connect', () => {
+      console.log('Connected to the server');
     });
 
     socket.on('currentTemperature', (temp) => {
@@ -17,6 +25,10 @@ const Home = () => {
 
     socket.on('currentHumidity', (hum) => {
       setCurrentHumidity(hum);
+    });
+
+    socket.on('disconnect', () => {
+      console.log('Disconnected from the server');
     });
 
     return () => {
@@ -32,12 +44,14 @@ const Home = () => {
           <p id="currentTemperature">{currentTemperature}°C</p>
         </div>
       </div>
+
       <div className="humidity card">
         <div className="card-description">
           <h3>Humidity</h3>
           <p id="currentHumidity">{currentHumidity}%</p>
         </div>
       </div>
+
       <div className="bomb card">
         <div className="card-description">
           <h3>Bomb Status</h3>
