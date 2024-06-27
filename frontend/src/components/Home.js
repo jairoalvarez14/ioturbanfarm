@@ -4,6 +4,7 @@ import { io } from 'socket.io-client';
 const Home = () => {
   const [currentTemperature, setCurrentTemperature] = useState(0);
   const [currentHumidity, setCurrentHumidity] = useState(0);
+  const [currentFeelsLike, setCurrentFeelsLike] = useState(0);
 
   useEffect(() => {
     const socket = io('https://ioturbanfarm-1.onrender.com', {
@@ -25,6 +26,10 @@ const Home = () => {
 
     socket.on('currentHumidity', (hum) => {
       setCurrentHumidity(hum);
+    });
+
+    socket.on('currentFeelsLike', (feelsLike) => {
+      setCurrentFeelsLike(feelsLike); 
     });
 
     socket.on('disconnect', () => {
@@ -49,6 +54,21 @@ const Home = () => {
         <div className="card-description">
           <h3>Humidity</h3>
           <p id="currentHumidity">{currentHumidity}%</p>
+        </div>
+      </div>
+    
+      <div className="feelsLike card">
+        <div className="card-description">
+          <h3>Feels like</h3>
+          <p id="feelsLike">{feelsLike}%</p>
+        </div>
+      </div>
+
+      <div className="frostRisk card">
+        <div className="card-description">
+          <h3>Frost Risk</h3>
+          {/* <p id="frostRisk">{frostRisk}%</p> */}
+          <p id="frostRisk">0%</p>
         </div>
       </div>
 
