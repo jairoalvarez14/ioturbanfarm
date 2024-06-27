@@ -5,6 +5,7 @@ import { Server as SocketIOServer } from 'socket.io';
 import { TempData } from './models/data.model.js';
 import { SerialPort } from 'serialport';
 import { DelimiterParser } from '@serialport/parser-delimiter';
+import express from 'express';
 
 
 // Conectar a MongoDB
@@ -13,12 +14,13 @@ connectDB();
 const server = http.createServer(app);
 const io = new SocketIOServer(server, {
     cors: {
-        // Cambiar la dirección IP
-      origin: "https://ioturbanfarm-1.onrender.com"
+        origin: "*",
+        methods: ["GET", "POST"]
     }
-  });
+});
 
 const PORT = process.env.PORT || 4000;
+app.use(express.json());
 
 server.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
@@ -42,28 +44,24 @@ port.on('error', (err) => {
     console.log(err);
 });
 
-const getCurrentData = async (data) => {
+app.post('/', async (req, res) => {
+    const { temperature, humidity } = req.body;
+
     try {
-        let dataStr = data.toString().trim();
-        let [currentTemp, currentHum] = dataStr.split(',').map(value => parseFloat(value));
-        
-        console.log('------');
-        console.log('Current Temp:', currentTemp);
-        console.log('Current Hum:', currentHum);
-
-        // Enviar datos
-        io.emit('currentTemperature', currentTemp);
-        // io.emit('currentHumidity', currentHum);
-
-        const tempData1 = new TempData({
-            temperature: currentTemp,
-            humidity: currentHum
+        // Guardar datos en la base de datos
+        const tempData = new TempData({
+            temperature,
+            humidity
         });
+        await tempData.save();
 
-        await tempData1.save();
+        // Emitir datos a través de Socket.IO
+        io.emit('currentTemperature', temperature);
+        //io.emit('currentHumidity', humidity);
+
+        res.status(200).send('Data received and processed');
     } catch (error) {
-        console.log(error);
+        console.error('Error processing data:', error);
+        res.status(500).send('Server error');
     }
-};
-
-parser.on('data', getCurrentData);
+});
