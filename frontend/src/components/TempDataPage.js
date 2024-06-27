@@ -20,8 +20,11 @@ const TempDataPage = () => {
       <table>
         <thead>
           <tr>
+            <th>Plant</th>
             <th>Temperature (°C)</th>
             <th>Humidity (%)</th>
+            <th>Feels Like (%)</th>
+            <th>Frost Risk (%)</th>
             <th>Timestamp</th>
           </tr>
         </thead>
@@ -29,8 +32,11 @@ const TempDataPage = () => {
           {allData.length > 0 ? (
             allData.map((data, index) => (
               <tr key={index}>
+                <td>Lettuce</td>
                 <td>{data.temperature}</td>
                 <td>{data.humidity}</td>
+                <td>{data.feelsLike}</td>
+                <td>0</td>
                 <td>{data.timestamp}</td>
               </tr>
             ))
