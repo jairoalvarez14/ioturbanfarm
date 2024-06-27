@@ -7,7 +7,11 @@ const tempSchema = new mongoose.Schema({
     },
     humidity: {
         type: Number,
-        // required: true
+        required: true
+    },
+    feelsLike: {
+        type: Number,
+        required: true
     },
     timestamp: {
         type: Date,
