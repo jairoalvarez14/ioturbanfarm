@@ -21,9 +21,6 @@ server.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
 });
 
-// Configurar rutas y middleware para manejar JSON
-app.use(express.json());
-
 // Ruta para recibir y procesar datos
 app.post('/', async (req, res) => {
     const { temperature, humidity } = req.body;
