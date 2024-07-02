@@ -9,7 +9,7 @@ const Home = () => {
       .then((data) => {
         console.log("Data showed in real time!", data);
         if(data.length > 0)
-          setLastData(data[data.length - 1]);
+          setLastData(data[data.length]);
       })
       .catch((error) => console.error("Error obtaining data:", error));
   }, []);
