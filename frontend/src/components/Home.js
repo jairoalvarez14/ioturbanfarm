@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 const Home = () => {
   const [allData, setAllData] = useState([]);
@@ -12,11 +12,10 @@ const Home = () => {
       })
       .catch((error) => console.error("Error obtaining data:", error));
   }, []);
-    
+
   return (
     <>
-      {allData.length > 0 ? (
-        allData.map((data, index) => (
+      {allData.map((data, index) => (
           <div className="container-all">
             <div className="card">
               <div className="card-description">
@@ -54,9 +53,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-        ))
-      ) : (
-        <h2>No data available</h2>
+        )
       )}
     </>
   );
