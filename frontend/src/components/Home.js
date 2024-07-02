@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 const Home = () => {
-  const [allData, setAllData] = useState([]);
+  const [allData, setAllData] = useState([0]);
 
   useEffect(() => {
     fetch("https://ioturbanfarm.onrender.com/allData")
