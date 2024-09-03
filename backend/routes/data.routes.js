@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { tempData } from "../models/data.model.js";
+import { TempData } from "../models/data.model.js";
 
 const router = Router();
 
