@@ -13,9 +13,10 @@ router.get('/allData', async(req, res) => {
             allData,
             totalPages: Math.ceil(count / limit),
             currentPage: page
-        })
+        });
     } catch (error) {
         console.log(error);
+        res.status(500).send('Server error!');
     }
 })
 
