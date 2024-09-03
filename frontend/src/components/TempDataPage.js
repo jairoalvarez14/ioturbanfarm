@@ -10,11 +10,11 @@ const TempDataPage = () => {
             .then(res => res.json())
             .then(datos => {
                 console.log('Data receibed:', datos);
-                setData(datos.data);
-                setTotalPages(datos.totalPages);
+                setAllData(datos.data);
+                setTotalPages(totalPages);
             })
-            .catch(error => console.error('Error:', err));
-    }, [currentPage]);
+            .catch(error => console.error('Error:', error));
+    }, [setCurrentPage]);
 
     return (
         <div>
